@@ -13,7 +13,7 @@ import {
   TextareaAutosize
 } from '@mui/material';
 
-export default function TestForm({ onTestComplete, onStopTest, isRunning }) {
+export default function TestForm({ onTestComplete, setIsRunning, isRunning }) {
   const [form, setForm] = useState({
     primaryUrl: '',
     comparisonUrl: '',
@@ -42,13 +42,21 @@ export default function TestForm({ onTestComplete, onStopTest, isRunning }) {
     e.preventDefault();
     try {
       await axios.post('/api/runTest', form);
-      onTestComplete();
+      setIsRunning(true);  // Test is now running
     } catch (err) {
       alert('Test failed: ' + err.message);
     }
   };
-
-  const handleStop = () => onStopTest();
+	
+	const handleStop = async () => {
+	   try {
+	     await axios.post('/api/stopTest');  // Backend endpoint to stop the test
+	     setIsRunning(false);  // Stop the test in the frontend
+	     onTestComplete();  // Signal parent component that the test is complete
+	   } catch (err) {
+	     alert('Error stopping the test: ' + err.message);
+	   }
+	 };
 
   const updateTPS = async () => {
     try {
