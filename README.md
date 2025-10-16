@@ -1,92 +1,117 @@
 🚀 BenchFlux
 
 BenchFlux is a lightweight developer tool for performance benchmarking and response comparison across API versions or environments.
-It helps developers quickly test API endpoints, measure response times, and identify data differences with ease.
+It helps developers quickly test API endpoints, measure response times, and identify data differences — all from a clean, web-based interface.
 
 🌟 Features
 
-⚡ API Performance Testing — Benchmark single or multiple endpoints with configurable payloads.
+⚡ API Performance Testing — Benchmark single or multiple REST endpoints.
 
-🔍 Response Comparison — Compare JSON or text responses side by side to detect differences.
+🔍 Response Comparison — Compare JSON or text responses to detect differences.
 
-📊 Detailed Metrics — View latency, success/failure counts, and response details.
+📊 Metrics Dashboard — View latency, response times, and success/failure counts.
 
-🧩 Configurable Endpoints — Supports GET, POST, PUT, DELETE with custom headers and body.
+🧩 Customizable Requests — Supports GET, POST, PUT, DELETE with headers and payloads.
 
-💻 Web UI — Simple and interactive user interface to trigger benchmarks and view results.
+💻 Interactive Web UI — Built with React for an intuitive experience.
 
-🛠️ Built with Java & Spring Boot — Reliable, production-grade backend.
+🛠️ Spring Boot Backend — Robust backend powered by Java and Maven.
 
-🎨 Frontend in JavaScript — Responsive, modern interface for quick testing.
+⚙️ Configurable Ports — Easily change ports or settings via application.properties.
 
 🧰 Tech Stack
 Layer	Technology
 Backend	Java 8+, Spring Boot, Maven
-Frontend	JavaScript, HTML, CSS
+Frontend	React, Node.js, npm
 Build Tool	Maven
-API Testing	RESTful APIs
+API Type	REST APIs
+UI Styling	HTML, CSS, JavaScript
 ⚙️ Setup & Run Instructions
 
-Follow these simple steps to get BenchFlux running locally:
+Follow these steps to run BenchFlux locally.
 
-1. Clone or Download the Repository
+🖥️ 1. Clone the Repository
 git clone https://github.com/thrinathreddy/BenchFlux.git
 cd BenchFlux
 
-2. Build the Project
+🔧 2. Build and Run the Backend
 
-Use Maven to compile and install dependencies:
+The backend is a Spring Boot application located at the project root.
 
+Using Maven
 mvn clean install
 
-3. Run the Application
+Start the application
+# Option 1: From your IDE
+Run BenchFluxApplication.java as a Spring Boot application.
 
-Run the main Spring Boot class:
-
-# Option 1: Using your IDE
-Run BenchFluxApplication.java as a Java/Spring Boot application.
-
-# Option 2: Using Maven
+# Option 2: From command line
 mvn spring-boot:run
 
-4. Access the Web UI
 
-Once the application starts successfully, open your browser and visit:
+Once it’s up, the backend will start on port 8090 (default).
 
-http://localhost:8090
+You can change the port in src/main/resources/application.properties
+Example:
+server.port=9090
+
+💻 3. Setup and Run the Frontend (React)
+
+The frontend code is located under the frontend/
+ folder.
+
+Navigate to frontend directory
+cd frontend
+
+Install dependencies
+npm install
+
+Run the React app
+npm start
 
 
-The default port is 8090.
-You can change the port by updating the server.port property in application.properties.
+The frontend will start on http://localhost:3000
+ by default.
+
+If needed, you can configure the backend API URL in your frontend environment file or constants.
+
+🌐 4. Access the Application
+
+Once both backend and frontend are running:
+
+Frontend UI → http://localhost:3000
+
+Backend API → http://localhost:8090
 
 📘 Example Usage
 
-You can test API endpoints such as:
+Try a sample test using:
 
 https://postman-echo.com/post
 
 
-with a JSON payload:
+With sample payload:
 
 {
   "message": "BenchFlux Test"
 }
 
 
-BenchFlux will record the response time and display comparison results.
+You’ll see request metrics and response comparison directly in the UI.
 
-🧩 Roadmap / Ideas
+🧭 Roadmap / Future Enhancements
 
-Add concurrency & parallel request testing
+🧵 Support for concurrent/multi-threaded API tests
 
-Add JSON diff tolerance (ignore specific fields)
+📊 Enhanced charts and visual metrics
 
-Export test results as CSV/JSON
+🧮 Configurable diff tolerance (ignore specific JSON fields)
 
-CI/CD integration for automated regression checks
+🧱 Result export (CSV/JSON)
 
-🧑‍💻 Author
+⚙️ CI/CD integration for automated regression benchmarks
+
+👨‍💻 Author
 
 Thrinath Reddy
-GitHub: @thrinathreddy  
-  
+GitHub: @thrinathreddy
