@@ -69,7 +69,14 @@ public class BenchFluxController {
                         return ResponseEntity.badRequest().body("Invalid JSON for authTokenHeaders.");
                     }
                 }
-
+                if (testRequest.getRawRequestBodies() != null && !testRequest.getRawRequestBodies().isEmpty()) {
+                    try {
+                        // Assuming requestBodies is a JSON string
+                        testRequest.setRequestBodies(objectMapper.readValue(testRequest.getRawRequestBodies(), List.class));
+                    } catch (IOException e) {
+                        
+                    }
+                }
                 // Generate token initially
                 String token = fetchAuthToken(testRequest);
                 if (token == null) {
@@ -117,7 +124,7 @@ public class BenchFluxController {
             return ResponseEntity.ok("Test started successfully.");
 
         } catch (Exception e) {
-        	logger.info("Starting test6");
+        	logger.info("error:: "+e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
@@ -187,7 +194,7 @@ public class BenchFluxController {
             ResponseEntity<String> response = restTemplate.exchange(request.getAuthTokenUrl(), method, httpEntity, String.class);
 
             String responseBody = response.getBody();
-
+            logger.info("body res   "+responseBody);
             // If a specific field is configured, extract from JSON
             if (request.getAuthTokenField() != null && !request.getAuthTokenField().isEmpty()) {
                 JsonNode jsonNode = new ObjectMapper().readTree(responseBody);
