@@ -1,6 +1,7 @@
 package com.benchflux.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -56,7 +57,7 @@ public class BenchFluxController {
             if (testRequest.getIterations() <= 0) {
                 testRequest.setIterations(100); // default iteration count
             }
-
+            logger.info("Starting test2");
             ObjectMapper objectMapper = new ObjectMapper();
             // Parse authTokenHeaders (if present)
             Map<String, String> authHeaders = null;
@@ -80,6 +81,7 @@ public class BenchFluxController {
                 // 🔁 Schedule token refresh (optional but powerful)
                 scheduleTokenRefresh(testRequest, authHeaders);
             }else {
+            	logger.info("Starting test3");
                 if (testRequest.getRawHeaders() != null && !testRequest.getRawHeaders().isEmpty()) {
                     try {
                         // Convert the JSON string into a Map<String, String>
@@ -98,12 +100,24 @@ public class BenchFluxController {
                     }
                 }
 
+            }else {
+            	if (testRequest.getRawRequestBodies() != null && !testRequest.getRawRequestBodies().isEmpty()) {
+                    try {
+                        // Assuming requestBodies is a JSON string
+                        testRequest.setRequestBodies(objectMapper.readValue(testRequest.getRawRequestBodies(), List.class));
+                    } catch (IOException e) {
+                        
+                    }
+                }
             }
             }
+            logger.info("Starting test4");
             testService.executeTest(testRequest);
+            logger.info("Starting test5");
             return ResponseEntity.ok("Test started successfully.");
 
         } catch (Exception e) {
+        	logger.info("Starting test6");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
@@ -129,9 +143,11 @@ public class BenchFluxController {
 
     // Endpoint to get the test results (returns JSON)
     @GetMapping("/results")
-    public ResponseEntity<List<TestResult>> viewResults() {
-        List<TestResult> results = testService.getResults();
-        return ResponseEntity.ok(results); // returns JSON array directly
+    public ResponseEntity<Map<String, Object>> viewResults() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("results", testService.getResults());       // your current results
+        response.put("running", testService.isRunning());       // include running status
+        return ResponseEntity.ok(response);
     }
 
     // Endpoint to stop the ongoing test

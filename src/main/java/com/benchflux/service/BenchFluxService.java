@@ -208,6 +208,10 @@ public class BenchFluxService {
         }
     }
     
+    public String isRunning() {
+        return (runningTest != null && !runningTest.isDisposed()) ? "YES" : "NO";
+    }
+    
     public void exportResultsToCSV(String filePath, List<TestResult> results) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             writer.println("Timestamp,Response Time (ms),Status,HTTP Code,Request Body,Response Body");
