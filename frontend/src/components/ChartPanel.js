@@ -37,9 +37,9 @@ export default function ChartPanel({ results }) {
       <Typography variant="h6" gutterBottom>
         📉 Real-Time Test Metrics
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={2} sx={{ mt: 4, width: '100%', px: 2 }}>
         {/* Response Time Chart */}
-        <Grid item xs={12} md={6}>
+        <Grid item size={4} sx={{ p: 2, height: '100%' }}>
           <Paper elevation={2} sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle1" gutterBottom>Response Time</Typography>
             <ResponsiveContainer width="100%" height={250}>
@@ -56,7 +56,7 @@ export default function ChartPanel({ results }) {
         </Grid>
 
         {/* TPS Chart */}
-        <Grid item xs={12} md={6}>
+        <Grid item size={4} sx={{ p: 2, height: '100%' }}>
           <Paper elevation={2} sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle1" gutterBottom>TPS (Transactions Per Second)</Typography>
             <ResponsiveContainer width="100%" height={250}>
@@ -73,7 +73,7 @@ export default function ChartPanel({ results }) {
         </Grid>
 
         {/* Success vs Fail Chart */}
-        <Grid item xs={12} md={6}>
+        <Grid item size={4} sx={{ p: 2, height: '100%' }}>
           <Paper elevation={2} sx={{ p: 2, height: '100%' }}>
             <Typography variant="subtitle1" gutterBottom>Status</Typography>
             <ResponsiveContainer width="100%" height={250}>

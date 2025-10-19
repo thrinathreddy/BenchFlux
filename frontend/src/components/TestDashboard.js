@@ -12,21 +12,21 @@ export default function TestDashboard() {
   // Fetch results every 5 seconds if the test is running
 
   const fetchResults = async () => {
-  try {
-    const res = await axios.get('/api/results');
-    const data = res.data;
+    try {
+      const res = await axios.get('/api/results');
+      const data = res.data;
 
-    setResults(data.results || []);
-    if(data.running === "NO"){
-      handleTestComplete();
-      setTestCompletedMsg('✅ Test Completed Successfully!');
-    }else{
-      setTestCompletedMsg('');  // Clear message if still running
+      setResults(data.results || []);
+      if (data.running === "NO") {
+        handleTestComplete();
+        setTestCompletedMsg('✅ Test Completed Successfully!');
+      } else {
+        setTestCompletedMsg('');  // Clear message if still running
+      }
+    } catch (err) {
+      console.error('Failed to fetch results:', err);
     }
-  } catch (err) {
-    console.error('Failed to fetch results:', err);
-  }
-};
+  };
 
 
   // Start or stop fetching based on the test running state
@@ -45,12 +45,7 @@ export default function TestDashboard() {
 
   return (
     <div>
-      <TestForm onTestComplete={handleTestComplete} setIsRunning={setIsRunning} isRunning={isRunning} />
-      {testCompletedMsg && (
-        <div style={{ marginTop: '10px', fontWeight: 'bold', color: 'green' }}>
-          {testCompletedMsg}
-        </div>
-      )}
+      <TestForm onTestComplete={handleTestComplete} setIsRunning={setIsRunning} isRunning={isRunning} testCompletedMsg={testCompletedMsg} />
       <ChartPanel results={results} />
       {/* <ResultsTable isRunning={isRunning} results={results} /> */}
     </div>
