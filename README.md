@@ -73,7 +73,7 @@ npm start
 The frontend will start on http://localhost:3000
  by default.
 
-If needed, you can configure the backend API URL in your frontend environment file or constants.
+If needed, you can configure the backend API port in your frontend package.json file
 
 🌐 4. Access the Application
 
